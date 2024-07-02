@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PostService {
@@ -19,6 +20,21 @@ public class PostService {
             List<Post> post= postRepository.findAll();
             return new ResponseEntity<>(post,HttpStatus.OK);
         }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public ResponseEntity<Post> getPostById(long id) {
+        try {
+            Optional<Post> optionalPost = postRepository.findById(id);
+            if(optionalPost.isPresent()){
+                Post postToBeFound = optionalPost.get();
+                return  new ResponseEntity<>(postToBeFound, HttpStatus.OK);
+            }else{
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        }
+        catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
