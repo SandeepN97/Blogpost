@@ -40,6 +40,7 @@ public class PostService {
         }
     }
 
+
     public ResponseEntity<Post> getPostByTitle(String title) {
         try {
             Optional<Post> optionalPost = postRepository.findByTitle(title);
@@ -107,5 +108,4 @@ public class PostService {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
 }
