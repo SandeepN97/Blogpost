@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PostService {
@@ -22,8 +23,7 @@ public class PostService {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-<<<<<<< Updated upstream
-=======
+
 
     public ResponseEntity<Post> getPostById(long id) {
         try {
@@ -107,5 +107,5 @@ public class PostService {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
->>>>>>> Stashed changes
+
 }
