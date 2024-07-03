@@ -5,13 +5,13 @@ import com.sandeep.blog.blogapplication.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
-<<<<<<< Updated upstream
+
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-=======
+
 import org.springframework.web.bind.annotation.*;
->>>>>>> Stashed changes
 
 import java.util.List;
 
@@ -26,9 +26,6 @@ public class PostController {
         return postService.getAllPost();
     }
 
-<<<<<<< Updated upstream
-
-=======
     @GetMapping("/getPost/{id}")
     public  ResponseEntity<Post> getPostById (@PathVariable long id){
         return postService.getPostById(id);
@@ -58,5 +55,5 @@ public class PostController {
     public ResponseEntity<Post> deletePost(@PathVariable long id){
         return postService.deletePost(id);
     }
->>>>>>> Stashed changes
+
 }
