@@ -8,23 +8,30 @@ import java.util.Set;
 
 @Data
 @Entity
+@Table(name = "users")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false,unique = true)
+    @Column(length = 50, nullable = false,unique = true)
     private String username;
 
-    @Column(nullable = false)
+    @Column(length = 500,nullable = false)
     private String password;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = true, unique = true)
     private String email;
 
+    @Column(nullable = false)
+    private boolean enabled;
+
     @ElementCollection(fetch = FetchType.EAGER)
-    private Set<String> roles;
+    @CollectionTable(name = "authorities", joinColumns = @JoinColumn(name = "username", referencedColumnName = "username"))
+    @Column(name = "authority")
+    private Set<String> authorities = new HashSet<>();
+
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Post> posts = new HashSet<>();
