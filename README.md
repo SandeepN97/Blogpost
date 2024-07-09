@@ -14,7 +14,7 @@ A simple blog application built with Spring Boot.
 - Spring Boot
 - Spring Data JPA
 - Thymeleaf
-- H2 Database (for development)
+- MySQL database
 - MySQL (for production)
 - Spring Security
 
