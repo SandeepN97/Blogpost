@@ -3,6 +3,12 @@ const { useState, useEffect, useCallback } = React;
 
 function App() {
   const [posts, setPosts] = useState([]);
+  const handleBookmark = (id) => {
+    fetch(`http://localhost:8080/user/1/bookmark/${id}`, { method: 'POST' })
+      .catch(err => console.error('Failed to bookmark post', err));
+  };
+
+              <button onClick={() => handleBookmark(post.id)}>Bookmark</button>
   const [tag, setTag] = useState('');
   const [query, setQuery] = useState('');
 

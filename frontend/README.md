@@ -1,6 +1,6 @@
 # Blog Frontend
 
-This is a lightweight React-based interface for the Blog Application backend. It uses CDN-hosted React so no build tools are required. The page lists posts, lets you filter by tag, search by keyword, and allows liking posts directly from the browser.
+This is a lightweight React-based interface for the Blog Application backend. It uses CDN-hosted React so no build tools are required. The page lists posts, lets you filter by tag, search by keyword, like posts, and bookmark favorites directly from the browser.
 
 ## Running
 
