@@ -85,7 +85,7 @@ public class PostController {
     public ResponseEntity<Post> unlikePost(@PathVariable long id){
         return postService.unlikePost(id);
     }
-
+  
     @GetMapping("/{id}/comments")
     public ResponseEntity<List<Comment>> getComments(@PathVariable long id) {
         return commentService.getCommentsByPost(id);
@@ -95,5 +95,4 @@ public class PostController {
     public ResponseEntity<Comment> addComment(@PathVariable long id, @RequestBody Comment comment) {
         return commentService.addCommentToPost(id, comment);
     }
-
 }
