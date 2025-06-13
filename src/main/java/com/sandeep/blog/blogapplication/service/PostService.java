@@ -10,6 +10,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +21,8 @@ import java.util.Optional;
 public class PostService {
     @Autowired
     PostRepository postRepository;
+
+    private static final Logger logger = LoggerFactory.getLogger(PostService.class);
 
     public ResponseEntity<List<Post>> getAllPost() {
         try {
