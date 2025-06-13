@@ -41,6 +41,11 @@ public class PostController {
         return postService.getPostByUser(userId);
     }
 
+    @GetMapping("/top/{count}")
+    public ResponseEntity<List<Post>> getTopPosts(@PathVariable int count) {
+        return postService.getTopPosts(count);
+    }
+
     @PostMapping("/addPost")
     public ResponseEntity<Post> addPost(@RequestBody Post post){
         return postService.addPost(post);

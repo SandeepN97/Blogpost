@@ -9,6 +9,7 @@ A simple blog application built with Spring Boot.
 - Comment on blog posts
 - View user profiles
 - Like and unlike posts
+- View top liked posts
 
 ## Technologies Used
 
