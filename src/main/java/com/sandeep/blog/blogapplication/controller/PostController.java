@@ -56,4 +56,14 @@ public class PostController {
         return postService.deletePost(id);
     }
 
+    @PostMapping("/{id}/like")
+    public ResponseEntity<Post> likePost(@PathVariable long id){
+        return postService.likePost(id);
+    }
+
+    @DeleteMapping("/{id}/like")
+    public ResponseEntity<Post> unlikePost(@PathVariable long id){
+        return postService.unlikePost(id);
+    }
+
 }

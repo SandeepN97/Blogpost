@@ -8,6 +8,7 @@ A simple blog application built with Spring Boot.
 - Create, edit, delete, and view blog posts
 - Comment on blog posts
 - View user profiles
+- Like and unlike posts
 
 ## Technologies Used
 
