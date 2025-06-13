@@ -1,0 +1,44 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 2rem;
+  background-color: #f5f5f5;
+}
+
+.container {
+  max-width: 800px;
+  margin: auto;
+}
+
+.post {
+  background: #fff;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.post h2 {
+  margin-top: 0;
+}
+
+.likes {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.filter-form {
+  margin-bottom: 1rem;
+}
+
+.comments {
+  margin-top: 0.5rem;
+  padding-left: 1rem;
+}
+
+.comments ul {
+  list-style: disc;
+  margin: 0 0 0.5rem 0;
+  padding-left: 1.2rem;
+}

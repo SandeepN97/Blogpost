@@ -45,4 +45,22 @@ public class UserController {
     public ResponseEntity<String> deleteUser(@PathVariable long id) {
         return userService.deleteUser(id);
     }
+
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+    @PostMapping("/{userId}/bookmark/{postId}")
+    public ResponseEntity<String> bookmarkPost(@PathVariable long userId, @PathVariable long postId) {
+        return userService.bookmarkPost(userId, postId);
+    }
+
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+    @DeleteMapping("/{userId}/bookmark/{postId}")
+    public ResponseEntity<String> removeBookmark(@PathVariable long userId, @PathVariable long postId) {
+        return userService.removeBookmark(userId, postId);
+    }
+
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+    @GetMapping("/{userId}/bookmarks")
+    public ResponseEntity<java.util.Set<com.sandeep.blog.blogapplication.model.Post>> getBookmarks(@PathVariable long userId) {
+        return userService.getBookmarkedPosts(userId);
+    }
 }

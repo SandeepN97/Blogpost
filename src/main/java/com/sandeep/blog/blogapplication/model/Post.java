@@ -41,7 +41,14 @@ public class Post {
     )
     private Set<Tag> tags = new HashSet<>();
 
+    @ManyToMany(mappedBy = "bookmarks")
+    private Set<User> bookmarkedBy = new HashSet<>();
+
+    @Column(nullable = false)
+    private int likes = 0;
+
     //using PrePersist and PreUpdate to automatically set timestamps
+    @PrePersist
     protected void onCreate(){
         createDate = LocalDateTime.now();
         updateDate = LocalDateTime.now();
