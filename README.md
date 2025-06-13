@@ -13,6 +13,7 @@ A simple blog application built with Spring Boot.
 - Obtain JWT tokens via `/auth/login` for stateless authentication
 - Simple React UI for viewing posts
 
+
 ## Technologies Used
 
 - Spring Boot
@@ -50,3 +51,4 @@ A simple blog application built with Spring Boot.
    python -m http.server 3000
    ```
    Then open [http://localhost:3000/index.html](http://localhost:3000/index.html) in your browser.
+
