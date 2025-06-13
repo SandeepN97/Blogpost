@@ -108,4 +108,38 @@ public class PostService {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    public ResponseEntity<Post> likePost(long id) {
+        try {
+            Optional<Post> optionalPost = postRepository.findById(id);
+            if(optionalPost.isPresent()){
+                Post post = optionalPost.get();
+                post.setLikes(post.getLikes() + 1);
+                postRepository.save(post);
+                return new ResponseEntity<>(post, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public ResponseEntity<Post> unlikePost(long id) {
+        try {
+            Optional<Post> optionalPost = postRepository.findById(id);
+            if(optionalPost.isPresent()){
+                Post post = optionalPost.get();
+                if(post.getLikes() > 0){
+                    post.setLikes(post.getLikes() - 1);
+                    postRepository.save(post);
+                }
+                return new ResponseEntity<>(post, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
