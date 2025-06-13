@@ -41,6 +41,21 @@ public class PostController {
         return postService.getPostByUser(userId);
     }
 
+    @GetMapping("/tag/{tagName}")
+    public ResponseEntity<List<Post>> getPostsByTag(@PathVariable String tagName) {
+        return postService.getPostsByTag(tagName);
+    }
+
+    @GetMapping("/top/{count}")
+    public ResponseEntity<List<Post>> getTopPosts(@PathVariable int count) {
+        return postService.getTopPosts(count);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Post>> searchPosts(@RequestParam("q") String query) {
+        return postService.searchPosts(query);
+    }
+
     @PostMapping("/addPost")
     public ResponseEntity<Post> addPost(@RequestBody Post post){
         return postService.addPost(post);
@@ -54,6 +69,16 @@ public class PostController {
     @DeleteMapping("/deletePost/{id}")
     public ResponseEntity<Post> deletePost(@PathVariable long id){
         return postService.deletePost(id);
+    }
+
+    @PostMapping("/{id}/like")
+    public ResponseEntity<Post> likePost(@PathVariable long id){
+        return postService.likePost(id);
+    }
+
+    @DeleteMapping("/{id}/like")
+    public ResponseEntity<Post> unlikePost(@PathVariable long id){
+        return postService.unlikePost(id);
     }
 
 }
