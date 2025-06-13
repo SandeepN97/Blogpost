@@ -16,6 +16,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import com.sandeep.blog.blogapplication.jwt.AuthTokenFilter;
 
 import javax.sql.DataSource;
 
@@ -28,6 +32,9 @@ public class SpringConfig {
 
     @Autowired
     DataSource dataSource;
+
+    @Autowired
+    private AuthTokenFilter authTokenFilter;
 
 
     // This is the configuration for the security of the application
@@ -44,15 +51,21 @@ public class SpringConfig {
         // The http.build method is used to build the security filter chain
         http.authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers("/user/add").hasRole("ADMIN")
-                                .requestMatchers("/user/allusers", "/users/{id}").hasAnyRole("USER", "ADMIN")
-                                .requestMatchers("/user/update", "/users/removeUser/{id}").hasRole("ADMIN")
+                                .requestMatchers("/auth/login", "/user/add").permitAll()
+                                .requestMatchers("/user/allusers", "/user/{id}").hasAnyRole("USER", "ADMIN")
+                                .requestMatchers("/user/update", "/user/removeuser/{id}").hasRole("ADMIN")
                                 .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .httpBasic(withDefaults())
-                .csrf(AbstractHttpConfigurer::disable);
-                http.headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
+                .csrf(AbstractHttpConfigurer::disable)
+                .addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class);
+        http.headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
         return http.build();
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+        return configuration.getAuthenticationManager();
     }
 
     // This method is used to define the user details service
