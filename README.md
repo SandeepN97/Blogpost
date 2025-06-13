@@ -10,15 +10,12 @@ A simple blog application built with Spring Boot.
 - View user profiles
 - Like and unlike posts
 - View top liked posts
-
 - View posts filtered by tag
+- Search posts by title or content
 - Obtain JWT tokens via `/auth/login` for stateless authentication
-- Simple React UI for viewing posts
+- Interactive React UI for browsing and liking posts with tag filtering
 - `/post/tag/{tag}` endpoint to filter posts by a specific tag
-
-- Obtain JWT tokens via `/auth/login` for stateless authentication
-- Simple React UI for viewing posts
-
+- `/post/search?q=keyword` endpoint to search posts
 
 ## Technologies Used
 
@@ -57,4 +54,3 @@ A simple blog application built with Spring Boot.
    python -m http.server 3000
    ```
    Then open [http://localhost:3000/index.html](http://localhost:3000/index.html) in your browser.
-

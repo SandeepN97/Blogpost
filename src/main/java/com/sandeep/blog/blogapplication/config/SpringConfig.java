@@ -52,8 +52,8 @@ public class SpringConfig {
         http.authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers("/auth/login", "/user/add").permitAll()
-                                .requestMatchers("/user/allusers", "/user/{id}").hasAnyRole("USER", "ADMIN")
-                                .requestMatchers("/user/update", "/user/removeuser/{id}").hasRole("ADMIN")
+                                .requestMatchers("/user/allusers", "/user/*").hasAnyRole("USER", "ADMIN")
+                                .requestMatchers("/user/update", "/user/removeuser/*").hasRole("ADMIN")
                                 .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .httpBasic(withDefaults())

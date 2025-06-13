@@ -82,6 +82,17 @@ public class PostService {
         }
     }
 
+    public ResponseEntity<List<Post>> searchPosts(String query) {
+        try {
+            List<Post> posts = postRepository
+                    .findByTitleContainingIgnoreCaseOrContentContainingIgnoreCase(query, query);
+            return new ResponseEntity<>(posts, HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error("Error searching posts", e);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+  
     public ResponseEntity<List<Post>> getTopPosts(int count) {
         try {
             Pageable pageable = PageRequest.of(0, count, Sort.by(Sort.Direction.DESC, "likes"));

@@ -51,6 +51,11 @@ public class PostController {
         return postService.getTopPosts(count);
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<List<Post>> searchPosts(@RequestParam("q") String query) {
+        return postService.searchPosts(query);
+    }
+
     @PostMapping("/addPost")
     public ResponseEntity<Post> addPost(@RequestBody Post post){
         return postService.addPost(post);
