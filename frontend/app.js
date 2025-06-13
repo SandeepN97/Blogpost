@@ -1,3 +1,4 @@
+
 const { useState, useEffect, useCallback } = React;
 
 function App() {
@@ -17,7 +18,6 @@ function App() {
       .then(setPosts)
       .catch(err => console.error('Failed to load posts', err));
   }, []);
-
   useEffect(() => {
     fetchPosts();
   }, [fetchPosts]);
