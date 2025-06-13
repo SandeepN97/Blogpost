@@ -1,4 +1,35 @@
 
+  const [newTitle, setNewTitle] = useState('');
+  const [newContent, setNewContent] = useState('');
+  const submitPost = (e) => {
+    e.preventDefault();
+    fetch('http://localhost:8080/post/addPost', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ title: newTitle, content: newContent, user: { id: 1 } })
+    })
+      .then(() => {
+        setNewTitle('');
+        setNewContent('');
+        fetchPosts(tag, query);
+      })
+      .catch(err => console.error('Failed to add post', err));
+  };
+
+      <form onSubmit={submitPost} className="post-form">
+        <input
+          value={newTitle}
+          onChange={(e) => setNewTitle(e.target.value)}
+          placeholder="Title"
+        />
+        <textarea
+          value={newContent}
+          onChange={(e) => setNewContent(e.target.value)}
+          placeholder="Write your post in Markdown..."
+        />
+        <div className="preview" dangerouslySetInnerHTML={{ __html: marked.parse(newContent) }} />
+        <button type="submit">Add Post</button>
+      </form>
 const { useState, useEffect, useCallback } = React;
 
 function App() {
