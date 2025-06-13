@@ -14,6 +14,13 @@ A simple blog application built with Spring Boot.
 - Obtain JWT tokens via `/auth/login` for stateless authentication
 - Interactive React UI for browsing and liking posts with tag filtering
 - `/post/tag/{tag}` endpoint to filter posts by a specific tag
+- View posts filtered by tag
+- Obtain JWT tokens via `/auth/login` for stateless authentication
+- Simple React UI for viewing posts
+- `/post/tag/{tag}` endpoint to filter posts by a specific tag
+
+- Obtain JWT tokens via `/auth/login` for stateless authentication
+- Simple React UI for viewing posts
 
 ## Technologies Used
 
@@ -52,3 +59,4 @@ A simple blog application built with Spring Boot.
    python -m http.server 3000
    ```
    Then open [http://localhost:3000/index.html](http://localhost:3000/index.html) in your browser.
+
