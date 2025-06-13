@@ -2,6 +2,7 @@ package com.sandeep.blog.blogapplication.service;
 
 import com.sandeep.blog.blogapplication.model.Comment;
 import com.sandeep.blog.blogapplication.repository.CommentRepository;
+import com.sandeep.blog.blogapplication.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,9 @@ public class CommentService {
 
     @Autowired
     CommentRepository commentRepository;
+
+    @Autowired
+    PostRepository postRepository;
 
     public ResponseEntity<List<Comment>> getAllComment() {
         try {
@@ -92,6 +96,29 @@ public class CommentService {
             } else {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public ResponseEntity<List<Comment>> getCommentsByPost(long postId) {
+        try {
+            List<Comment> comments = commentRepository.findByPostId(postId);
+            return new ResponseEntity<>(comments, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public ResponseEntity<Comment> addCommentToPost(long postId, Comment comment) {
+        try {
+            Optional<com.sandeep.blog.blogapplication.model.Post> postOpt = postRepository.findById(postId);
+            if (postOpt.isPresent()) {
+                comment.setPost(postOpt.get());
+                Comment saved = commentRepository.save(comment);
+                return new ResponseEntity<>(saved, HttpStatus.CREATED);
+            }
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

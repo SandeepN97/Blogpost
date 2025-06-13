@@ -6,6 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,6 +19,8 @@ import java.util.Optional;
 public class PostService {
     @Autowired
     PostRepository postRepository;
+
+    private static final Logger logger = LoggerFactory.getLogger(PostService.class);
 
     public ResponseEntity<List<Post>> getAllPost() {
         try {
@@ -65,6 +72,37 @@ public class PostService {
         }
     }
 
+    public ResponseEntity<List<Post>> getPostsByTag(String tagName) {
+        try {
+            List<Post> posts = postRepository.findByTagsName(tagName);
+            return new ResponseEntity<>(posts, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public ResponseEntity<List<Post>> searchPosts(String query) {
+        try {
+            List<Post> posts = postRepository
+                    .findByTitleContainingIgnoreCaseOrContentContainingIgnoreCase(query, query);
+            return new ResponseEntity<>(posts, HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error("Error searching posts", e);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public ResponseEntity<List<Post>> getTopPosts(int count) {
+        try {
+            Pageable pageable = PageRequest.of(0, count, Sort.by(Sort.Direction.DESC, "likes"));
+            List<Post> posts = postRepository.findAll(pageable).getContent();
+            return new ResponseEntity<>(posts, HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error("Error retrieving top posts", e);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     public ResponseEntity<Post> addPost(Post post) {
         try {
             Post postToBeAdded = postRepository.save(post);
@@ -105,6 +143,40 @@ public class PostService {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
         }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public ResponseEntity<Post> likePost(long id) {
+        try {
+            Optional<Post> optionalPost = postRepository.findById(id);
+            if(optionalPost.isPresent()){
+                Post post = optionalPost.get();
+                post.setLikes(post.getLikes() + 1);
+                postRepository.save(post);
+                return new ResponseEntity<>(post, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public ResponseEntity<Post> unlikePost(long id) {
+        try {
+            Optional<Post> optionalPost = postRepository.findById(id);
+            if(optionalPost.isPresent()){
+                Post post = optionalPost.get();
+                if(post.getLikes() > 0){
+                    post.setLikes(post.getLikes() - 1);
+                    postRepository.save(post);
+                }
+                return new ResponseEntity<>(post, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

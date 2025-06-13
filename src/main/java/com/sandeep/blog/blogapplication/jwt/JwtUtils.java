@@ -61,7 +61,7 @@ public class JwtUtils {
 
     public boolean validateToken(String authToken) {
         try {
-            System.out.println("Validate");
+            logger.debug("Validating JWT token");
             Jwts.parser()
                     .verifyWith((SecretKey) key())
                     .build()
