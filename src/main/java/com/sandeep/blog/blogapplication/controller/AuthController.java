@@ -3,6 +3,8 @@ package com.sandeep.blog.blogapplication.controller;
 import com.sandeep.blog.blogapplication.jwt.JwtUtils;
 import com.sandeep.blog.blogapplication.payload.LoginRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,6 +24,8 @@ import java.util.Map;
 @RequestMapping("/auth")
 public class AuthController {
 
+    private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
+
     @Autowired
     private AuthenticationManager authenticationManager;
 
@@ -29,7 +33,7 @@ public class AuthController {
     private JwtUtils jwtUtils;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
+    public ResponseEntity<Map<String, String>> login(@RequestBody LoginRequest request) {
         try {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
@@ -39,7 +43,10 @@ public class AuthController {
             body.put("token", token);
             return ResponseEntity.ok(body);
         } catch (AuthenticationException e) {
-            return new ResponseEntity<>("Invalid username or password", HttpStatus.UNAUTHORIZED);
+            logger.warn("Login failed for user {}: {}", request.getUsername(), e.getMessage());
+            Map<String, String> error = new HashMap<>();
+            error.put("error", "Invalid username or password");
+            return new ResponseEntity<>(error, HttpStatus.UNAUTHORIZED);
         }
     }
 }
