@@ -41,6 +41,11 @@ public class PostController {
         return postService.getPostByUser(userId);
     }
 
+    @GetMapping("/tag/{tagName}")
+    public ResponseEntity<List<Post>> getPostsByTag(@PathVariable String tagName) {
+        return postService.getPostsByTag(tagName);
+    }
+
     @GetMapping("/top/{count}")
     public ResponseEntity<List<Post>> getTopPosts(@PathVariable int count) {
         return postService.getTopPosts(count);

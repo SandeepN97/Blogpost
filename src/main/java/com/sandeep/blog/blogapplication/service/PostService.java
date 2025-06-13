@@ -13,7 +13,6 @@ import org.springframework.data.domain.Sort;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 import java.util.List;
 import java.util.Optional;
 
@@ -74,12 +73,22 @@ public class PostService {
         }
     }
 
+    public ResponseEntity<List<Post>> getPostsByTag(String tagName) {
+        try {
+            List<Post> posts = postRepository.findByTagsName(tagName);
+            return new ResponseEntity<>(posts, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     public ResponseEntity<List<Post>> getTopPosts(int count) {
         try {
             Pageable pageable = PageRequest.of(0, count, Sort.by(Sort.Direction.DESC, "likes"));
             List<Post> posts = postRepository.findAll(pageable).getContent();
             return new ResponseEntity<>(posts, HttpStatus.OK);
         } catch (Exception e) {
+            logger.error("Error retrieving top posts", e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
