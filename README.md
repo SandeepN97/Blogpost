@@ -8,6 +8,10 @@ A simple blog application built with Spring Boot.
 - Create, edit, delete, and view blog posts
 - Comment on blog posts
 - View user profiles
+- Like and unlike posts
+- View top liked posts
+- Obtain JWT tokens via `/auth/login` for stateless authentication
+- Simple React UI for viewing posts
 
 ## Technologies Used
 
@@ -17,6 +21,7 @@ A simple blog application built with Spring Boot.
 - MySQL database
 - MySQL (for production)
 - Spring Security
+- React (frontend)
 
 ## Getting Started
 
@@ -32,3 +37,16 @@ A simple blog application built with Spring Boot.
    ```sh
    git clone https://github.com/username/blog-application.git
    cd blog-application
+   ```
+
+2. Set the `JWT_SECRET` environment variable for token generation (optional):
+   ```sh
+   export JWT_SECRET=yourStrongSecret
+   ```
+
+3. Start the React frontend (optional):
+   ```sh
+   cd frontend
+   python -m http.server 3000
+   ```
+   Then open [http://localhost:3000/index.html](http://localhost:3000/index.html) in your browser.
