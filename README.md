@@ -62,6 +62,11 @@ A simple blog application built with Spring Boot.
    ```
    Then open [http://localhost:3000/index.html](http://localhost:3000/index.html) in your browser.
 
+4. Ensure a MySQL server is running on `localhost:3306` with a database named
+   `blogpostapplication` and credentials `root`/`root`. If your database
+   configuration differs, update the values in
+   `src/main/resources/application.properties` accordingly.
+
 
 ### API Documentation
 
