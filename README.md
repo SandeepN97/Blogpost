@@ -60,7 +60,14 @@ A simple blog application built with Spring Boot.
 After starting the Spring Boot application, you can explore all REST endpoints interactively using Swagger UI. Visit:
 
 ```
+
+http://localhost:8084/blogpostapplication/swagger-ui.html
+```
+
+Swagger resources are publicly accessible, so no authentication is required to browse the docs. The generated OpenAPI specification is also available at `/blogpostapplication/v3/api-docs` and can be used to generate client libraries.
+=======
 http://localhost:8084/blogpostapplication/swagger-ui/index.html
 ```
 
 The OpenAPI specification is also available at `/blogpostapplication/v3/api-docs` and can be used to generate client libraries.
+
