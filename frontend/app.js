@@ -1,3 +1,4 @@
+
 const { useState, useEffect, useCallback } = React;
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
       .then(() => fetchPosts(tag, query))
       .catch(err => console.error('Failed to like post', err));
   };
+
 
   const handleBookmark = (id) => {
     fetch(`http://localhost:8080/user/1/bookmark/${id}`, { method: 'POST' })
@@ -120,6 +122,7 @@ function App() {
         <div className="preview" dangerouslySetInnerHTML={{ __html: marked.parse(newContent) }} />
         <button type="submit">Add Post</button>
       </form>
+
       <form onSubmit={handleFilter} className="filter-form">
         <input
           value={tag}
@@ -139,6 +142,7 @@ function App() {
         <button type="button" onClick={clearSearch}>Clear</button>
       </form>
       <button type="button" onClick={fetchTopPosts}>Top Posts</button>
+
       <ul className="post-list">
         {posts.map(post => (
           <li key={post.id} className="post">
@@ -165,6 +169,7 @@ function App() {
                 <button onClick={() => submitComment(post.id)}>Add</button>
               </div>
             )}
+            </div>
           </li>
         ))}
       </ul>

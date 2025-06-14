@@ -95,5 +95,4 @@ public class PostController {
     public ResponseEntity<Comment> addComment(@PathVariable long id, @RequestBody Comment comment) {
         return commentService.addCommentToPost(id, comment);
     }
-
 }

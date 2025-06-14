@@ -10,11 +10,13 @@ A simple blog application built with Spring Boot.
 - View user profiles
 - Like and unlike posts
 - View top liked posts
+
 - Bookmark favorite posts
 - View posts filtered by tag
 - Search posts by title or content
 - Obtain JWT tokens via `/auth/login` for stateless authentication
 - Interactive React UI for browsing and liking posts with tag filtering
+
 - View top liked posts from the React UI
 - Create posts with Markdown formatting in the React UI
 - `/post/tag/{tag}` endpoint to filter posts by a specific tag

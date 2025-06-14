@@ -4,6 +4,7 @@ This is a lightweight React-based interface for the Blog Application backend. It
 You can also show the most liked posts with the **Top Posts** button.
 Authors can create new posts using a built-in Markdown editor with live preview.
 
+
 ## Running
 
 Serve the `frontend` directory using any static file server. For example:
