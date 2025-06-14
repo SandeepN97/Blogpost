@@ -5,6 +5,17 @@ function App() {
   const [posts, setPosts] = useState([]);
   const [tag, setTag] = useState('');
   const [query, setQuery] = useState('');
+  const [comments, setComments] = useState({});
+  const [newComment, setNewComment] = useState('');
+  const [newTitle, setNewTitle] = useState('');
+  const [newContent, setNewContent] = useState('');
+
+  const fetchTopPosts = useCallback(() => {
+    fetch('http://localhost:8080/post/top/5')
+      .then(res => res.json())
+      .then(setPosts)
+      .catch(err => console.error('Failed to load top posts', err));
+  }, []);
 
   const fetchPosts = useCallback((tagName = '', search = '') => {
     let url = 'http://localhost:8080/post/getAllPost';
@@ -18,6 +29,7 @@ function App() {
       .then(setPosts)
       .catch(err => console.error('Failed to load posts', err));
   }, []);
+
   useEffect(() => {
     fetchPosts();
   }, [fetchPosts]);
@@ -26,6 +38,51 @@ function App() {
     fetch(`http://localhost:8080/post/${id}/like`, { method: 'POST' })
       .then(() => fetchPosts(tag, query))
       .catch(err => console.error('Failed to like post', err));
+  };
+
+
+  const handleBookmark = (id) => {
+    fetch(`http://localhost:8080/user/1/bookmark/${id}`, { method: 'POST' })
+      .catch(err => console.error('Failed to bookmark post', err));
+  };
+
+  const submitPost = (e) => {
+    e.preventDefault();
+    fetch('http://localhost:8080/post/addPost', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ title: newTitle, content: newContent, user: { id: 1 } })
+    })
+      .then(() => {
+        setNewTitle('');
+        setNewContent('');
+        fetchPosts(tag, query);
+      })
+      .catch(err => console.error('Failed to add post', err));
+  };
+
+  const toggleComments = (id) => {
+    if (comments[id]) {
+      setComments(prev => ({ ...prev, [id]: undefined }));
+    } else {
+      fetch(`http://localhost:8080/post/${id}/comments`)
+        .then(res => res.json())
+        .then(data => setComments(prev => ({ ...prev, [id]: data })))
+        .catch(err => console.error('Failed to load comments', err));
+    }
+  };
+
+  const submitComment = (id) => {
+    fetch(`http://localhost:8080/post/${id}/comments`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ content: newComment, user: { id: 1 } })
+    })
+      .then(() => {
+        setNewComment('');
+        toggleComments(id);
+      })
+      .catch(err => console.error('Failed to add comment', err));
   };
 
   const handleFilter = (e) => {
@@ -51,6 +108,21 @@ function App() {
   return (
     <div>
       <h1>Blog Posts</h1>
+      <form onSubmit={submitPost} className="post-form">
+        <input
+          value={newTitle}
+          onChange={(e) => setNewTitle(e.target.value)}
+          placeholder="Title"
+        />
+        <textarea
+          value={newContent}
+          onChange={(e) => setNewContent(e.target.value)}
+          placeholder="Write your post in Markdown..."
+        />
+        <div className="preview" dangerouslySetInnerHTML={{ __html: marked.parse(newContent) }} />
+        <button type="submit">Add Post</button>
+      </form>
+
       <form onSubmit={handleFilter} className="filter-form">
         <input
           value={tag}
@@ -69,6 +141,8 @@ function App() {
         <button type="submit">Search</button>
         <button type="button" onClick={clearSearch}>Clear</button>
       </form>
+      <button type="button" onClick={fetchTopPosts}>Top Posts</button>
+
       <ul className="post-list">
         {posts.map(post => (
           <li key={post.id} className="post">
@@ -77,6 +151,24 @@ function App() {
             <div className="likes">
               <span>{post.likes} likes</span>
               <button onClick={() => handleLike(post.id)}>Like</button>
+              <button onClick={() => handleBookmark(post.id)}>Bookmark</button>
+              <button onClick={() => toggleComments(post.id)}>Comments</button>
+            </div>
+            {comments[post.id] && (
+              <div className="comments">
+                <ul>
+                  {comments[post.id].map(c => (
+                    <li key={c.id}>{c.content}</li>
+                  ))}
+                </ul>
+                <input
+                  value={newComment}
+                  onChange={e => setNewComment(e.target.value)}
+                  placeholder="Add a comment..."
+                />
+                <button onClick={() => submitComment(post.id)}>Add</button>
+              </div>
+            )}
             </div>
           </li>
         ))}

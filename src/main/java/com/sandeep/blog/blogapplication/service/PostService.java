@@ -92,7 +92,7 @@ public class PostService {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-  
+
     public ResponseEntity<List<Post>> getTopPosts(int count) {
         try {
             Pageable pageable = PageRequest.of(0, count, Sort.by(Sort.Direction.DESC, "likes"));

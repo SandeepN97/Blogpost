@@ -31,3 +31,33 @@ body {
 .filter-form {
   margin-bottom: 1rem;
 }
+
+.post-form {
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.post-form textarea {
+  height: 150px;
+}
+
+.preview {
+  background: #fff;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.comments {
+  margin-top: 0.5rem;
+  padding-left: 1rem;
+}
+
+.comments ul {
+  list-style: disc;
+  margin: 0 0 0.5rem 0;
+  padding-left: 1.2rem;
+}
+

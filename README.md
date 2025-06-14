@@ -10,12 +10,20 @@ A simple blog application built with Spring Boot.
 - View user profiles
 - Like and unlike posts
 - View top liked posts
+
+- Bookmark favorite posts
 - View posts filtered by tag
 - Search posts by title or content
 - Obtain JWT tokens via `/auth/login` for stateless authentication
 - Interactive React UI for browsing and liking posts with tag filtering
+
+- View top liked posts from the React UI
+- Create posts with Markdown formatting in the React UI
 - `/post/tag/{tag}` endpoint to filter posts by a specific tag
 - `/post/search?q=keyword` endpoint to search posts
+- `/post/{postId}/comments` endpoint to view or add comments on a post
+- `/user/{userId}/bookmark/{postId}` endpoint to bookmark or remove a post
+- `/user/{userId}/bookmarks` endpoint to list a user's bookmarks
 
 ## Technologies Used
 
@@ -23,7 +31,6 @@ A simple blog application built with Spring Boot.
 - Spring Data JPA
 - Thymeleaf
 - MySQL database
-- MySQL (for production)
 - Spring Security
 - React (frontend)
 
@@ -55,6 +62,7 @@ A simple blog application built with Spring Boot.
    ```
    Then open [http://localhost:3000/index.html](http://localhost:3000/index.html) in your browser.
 
+
 ### API Documentation
 
 After starting the Spring Boot application, you can explore all REST endpoints interactively using Swagger UI. Visit:
@@ -65,9 +73,10 @@ http://localhost:8084/blogpostapplication/swagger-ui.html
 ```
 
 Swagger resources are publicly accessible, so no authentication is required to browse the docs. The generated OpenAPI specification is also available at `/blogpostapplication/v3/api-docs` and can be used to generate client libraries.
-=======
+
 http://localhost:8084/blogpostapplication/swagger-ui/index.html
 ```
 
 The OpenAPI specification is also available at `/blogpostapplication/v3/api-docs` and can be used to generate client libraries.
+
 

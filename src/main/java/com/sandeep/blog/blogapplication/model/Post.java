@@ -41,6 +41,9 @@ public class Post {
     )
     private Set<Tag> tags = new HashSet<>();
 
+    @ManyToMany(mappedBy = "bookmarks")
+    private Set<User> bookmarkedBy = new HashSet<>();
+
     @Column(nullable = false)
     private int likes = 0;
 

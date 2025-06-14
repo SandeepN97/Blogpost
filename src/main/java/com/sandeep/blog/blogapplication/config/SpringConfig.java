@@ -19,6 +19,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.http.HttpMethod;
+
 import com.sandeep.blog.blogapplication.jwt.AuthTokenFilter;
 
 import javax.sql.DataSource;
@@ -49,9 +51,10 @@ public class SpringConfig {
         // The http.build method is used to build the security filter chain
         http.authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers("/auth/login", "/user/add", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                                .requestMatchers("/user/allusers", "/user/*").hasAnyRole("USER", "ADMIN")
-                                .requestMatchers("/user/update", "/user/removeuser/*").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.POST, "/auth/login", "/user/add").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/post/**").permitAll()
+                                .requestMatchers("/user/update", "/user/removeuser/**").hasRole("ADMIN")
+                                .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
                                 .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .httpBasic(withDefaults())
