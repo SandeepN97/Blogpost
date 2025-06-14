@@ -35,8 +35,6 @@ public class SpringConfig {
     @Autowired
     DataSource dataSource;
 
-    @Autowired
-    private AuthTokenFilter authTokenFilter;
 
 
     // This is the configuration for the security of the application
@@ -46,7 +44,7 @@ public class SpringConfig {
 
     //@Bean - This annotation is used to define a bean in the application context
     @Bean
-    public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http, AuthTokenFilter authTokenFilter) throws Exception {
         // The http.authorizeRequests method is used to define the authorization rules for the application
         // The http.sessionManagement method is used to define the session management policy for the application
         // The http.httpBasic method is used to define the basic authentication for the application
