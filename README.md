@@ -54,3 +54,13 @@ A simple blog application built with Spring Boot.
    python -m http.server 3000
    ```
    Then open [http://localhost:3000/index.html](http://localhost:3000/index.html) in your browser.
+
+### API Documentation
+
+After starting the Spring Boot application, you can explore all REST endpoints interactively using Swagger UI. Visit:
+
+```
+http://localhost:8084/blogpostapplication/swagger-ui.html
+```
+
+Swagger resources are publicly accessible, so no authentication is required to browse the docs. The generated OpenAPI specification is also available at `/blogpostapplication/v3/api-docs` and can be used to generate client libraries.
