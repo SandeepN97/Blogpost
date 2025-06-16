@@ -155,24 +155,9 @@ function App() {
                 <button onClick={() => handleBookmark(post.id)}>Bookmark</button>
                 <button onClick={() => toggleComments(post.id)}>Comments</button>
               </div>
-              {comments[post.id] && (
-                <div className="comments">
-                  <ul>
-                    {comments[post.id].map(c => (
-                      <li key={c.id}>{c.content}</li>
-                    ))}
-                  </ul>
-                  <input
-                    value={newComment}
-                    onChange={e => setNewComment(e.target.value)}
-                    placeholder="Add a comment..."
-                  />
-                  <button onClick={() => submitComment(post.id)}>Add</button>
-                </div>
-              )}
-            </li>
-          );
-        })}
+            )}
+          </li>
+        ))}
       </ul>
     </div>
   );

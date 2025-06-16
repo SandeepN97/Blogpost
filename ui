@@ -39,6 +39,7 @@ else
   SERVER_PID=$!
   sleep 2
 fi
+
 URL="http://localhost:$PORT"
 if command -v xdg-open >/dev/null 2>&1; then
   xdg-open "$URL"
@@ -47,4 +48,5 @@ elif command -v open >/dev/null 2>&1; then
 else
   echo "Open $URL in your browser"
 fi
+
 [ -n "$SERVER_PID" ] && wait $SERVER_PID
