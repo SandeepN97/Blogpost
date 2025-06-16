@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+# Helper script to start the frontend and open it in the browser.
+
+set -e
+
+PORT=${PORT:-3000}
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do
+  DIR="$(cd -P "$(dirname "$SOURCE")" && pwd)"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
+done
+SCRIPT_DIR="$(cd -P "$(dirname "$SOURCE")" && pwd)"
+cd "$SCRIPT_DIR/frontend" || exit 1
+
+# Determine the command to launch the frontend
+if [ -n "$FRONTEND_CMD" ]; then
+  START_CMD="$FRONTEND_CMD"
+else
+  if command -v python3 >/dev/null 2>&1; then
+    START_CMD="python3 -m http.server $PORT"
+  elif command -v python >/dev/null 2>&1; then
+    START_CMD="python -m http.server $PORT"
+  elif command -v npx >/dev/null 2>&1; then
+    START_CMD="npx --yes http-server -p $PORT"
+  else
+    echo "No suitable server found. Install Python or Node's http-server, or set FRONTEND_CMD." >&2
+    exit 1
+  fi
+fi
+
+echo "Starting frontend with: $START_CMD"
+if lsof -i tcp:"$PORT" -sTCP:LISTEN >/dev/null 2>&1; then
+  echo "Port $PORT already in use; assuming server is running"
+  SERVER_PID=""
+else
+  # Run the server in the background so we can open the browser
+  bash -c "$START_CMD" &
+  SERVER_PID=$!
+  sleep 2
+fi
+
+URL="http://localhost:$PORT"
+if command -v xdg-open >/dev/null 2>&1; then
+  xdg-open "$URL"
+elif command -v open >/dev/null 2>&1; then
+  open "$URL"
+else
+  echo "Open $URL in your browser"
+fi
+
+[ -n "$SERVER_PID" ] && wait $SERVER_PID
