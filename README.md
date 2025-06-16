@@ -33,7 +33,7 @@ A simple blog application built with Spring Boot.
 - Spring Boot
 - Spring Data JPA
 - Thymeleaf
-- MySQL database
+- H2 in-memory database
 - Spring Security
 - React (frontend)
 
@@ -65,10 +65,30 @@ A simple blog application built with Spring Boot.
    ```
    Then open [http://localhost:3000/index.html](http://localhost:3000/index.html) in your browser.
 
-4. Ensure a MySQL server is running on `localhost:3306` with a database named
-   `blogpostapplication` and credentials `root`/`root`. If your database
-   configuration differs, update the values in
-   `src/main/resources/application.properties` accordingly.
+4. No external database setup is required. The application uses an embedded
+   H2 database that runs in memory. You can access the H2 console at
+   [http://localhost:8084/blogpostapplication/h2-console](http://localhost:8084/blogpostapplication/h2-console)
+   after starting the backend.
+
+### Running the Application 🚀
+
+1. From the project root, start the Spring Boot backend:
+   ```sh
+   ./mvnw spring-boot:run
+   ```
+   The API will be available at [http://localhost:8084/blogpostapplication](http://localhost:8084/blogpostapplication).
+   The first run may take a while as Maven downloads dependencies.
+
+   If you want to prefetch all dependencies manually, run:
+   ```sh
+   ./mvnw dependency:resolve
+   ```
+   This command uses the [maven-dependency-plugin](https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-dependency-plugin) to ensure all required artifacts are downloaded.
+
+2. *(Optional)* Execute the test suite:
+   ```sh
+   ./mvnw test
+   ```
 
 ### Running the Application 🚀
 
