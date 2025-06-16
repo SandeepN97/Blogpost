@@ -4,6 +4,7 @@ package com.sandeep.blog.blogapplication.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -81,6 +82,7 @@ public class SpringConfig {
 
     //@Bean - This annotation is used to define a bean in the application context
     @Bean
+    @DependsOn("entityManagerFactory")
     public UserDetailsService userDetailsService() {
 
         UserDetails user1 = org.springframework.security.core.userdetails.User.withUsername("user")
