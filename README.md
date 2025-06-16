@@ -2,23 +2,23 @@
 
 A simple blog application built with Spring Boot.
 
-## Features
+## Features ✨
 
-- User registration and login
-- Create, edit, delete, and view blog posts
-- Comment on blog posts
-- View user profiles
-- Like and unlike posts
-- View top liked posts
+- 🔐 **User registration and login**
+- 📝 **Create, edit, delete, and view blog posts**
+- 💬 **Comment on blog posts**
+- 👤 **View user profiles**
+- 👍 **Like and unlike posts**
+- 📈 **View top liked posts**
 
-- Bookmark favorite posts
-- View posts filtered by tag
-- Search posts by title or content
-- Obtain JWT tokens via `/auth/login` for stateless authentication
-- Interactive React UI for browsing and liking posts with tag filtering
+- 📌 **Bookmark favorite posts**
+- 🔖 **View posts filtered by tag**
+- 🔍 **Search posts by title or content**
+- 🛡️ **Obtain JWT tokens** via `/auth/login` for stateless authentication
+- 🖥️ **Interactive React UI** for browsing and liking posts with tag filtering
 
-- View top liked posts from the React UI
-- Create posts with Markdown formatting in the React UI
+- ⭐ **View top liked posts** from the React UI
+- ✍️ **Create posts with Markdown** formatting in the React UI
 - `/post/tag/{tag}` endpoint to filter posts by a specific tag
 - `/post/search?q=keyword` endpoint to search posts
 - `/post/{postId}/comments` endpoint to view or add comments on a post
@@ -66,6 +66,20 @@ A simple blog application built with Spring Boot.
    `blogpostapplication` and credentials `root`/`root`. If your database
    configuration differs, update the values in
    `src/main/resources/application.properties` accordingly.
+
+### Running the Application 🚀
+
+1. From the project root, start the Spring Boot backend:
+   ```sh
+   ./mvnw spring-boot:run
+   ```
+   The API will be available at [http://localhost:8084/blogpostapplication](http://localhost:8084/blogpostapplication).
+   The first run may take a while as Maven downloads dependencies.
+
+2. *(Optional)* Execute the test suite:
+   ```sh
+   ./mvnw test
+   ```
 
 
 ### API Documentation
