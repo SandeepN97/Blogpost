@@ -84,7 +84,6 @@ A simple blog application built with Spring Boot.
    ./mvnw dependency:resolve
    ```
    This command uses the [maven-dependency-plugin](https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-dependency-plugin) to ensure all required artifacts are downloaded.
-
 2. *(Optional)* Execute the test suite:
    ```sh
    ./mvnw test
