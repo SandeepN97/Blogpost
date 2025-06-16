@@ -62,6 +62,7 @@ A simple blog application built with Spring Boot.
    Once the `ui` helper is on your `PATH` you can run it from anywhere:
    ```sh
    ui       # or UI
+
    ```
    The script serves the `frontend` folder on [http://localhost:3000](http://localhost:3000)
    by auto-detecting `python3`, `python` or `npx http-server`. You can override the
@@ -72,13 +73,13 @@ A simple blog application built with Spring Boot.
    sudo ln -s "$PWD/ui" /usr/local/bin/ui
    sudo ln -s "$PWD/ui" /usr/local/bin/UI
    ```
+   The script resolves its own path so these symlinks work from any directory.
    Alternatively add aliases to your `~/.bashrc` or `~/.zshrc`:
    ```sh
    echo "alias ui='$PWD/ui'" >> ~/.bashrc
    echo "alias UI='$PWD/ui'" >> ~/.bashrc
    # reload the shell for the aliases to take effect
    ```
-
 
 4. No external database setup is required. The application uses an embedded
    H2 database that runs in memory. You can access the H2 console at
