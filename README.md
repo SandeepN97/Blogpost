@@ -59,11 +59,26 @@ A simple blog application built with Spring Boot.
    ```
 
 3. Start the React frontend (optional):
-   Use the helper script from the project root:
+   Once the `ui` helper is on your `PATH` you can run it from anywhere:
    ```sh
-   ./ui       # or ./UI
+   ui       # or UI
    ```
-   This serves the `frontend` directory on [http://localhost:3000](http://localhost:3000).
+   The script serves the `frontend` folder on [http://localhost:3000](http://localhost:3000)
+   by auto-detecting `python3`, `python` or `npx http-server`. You can override the
+   command completely by setting the `FRONTEND_CMD` environment variable (e.g. `npm run dev`).
+
+   To make the command globally available on macOS/Linux, create symlinks:
+   ```sh
+   sudo ln -s "$PWD/ui" /usr/local/bin/ui
+   sudo ln -s "$PWD/ui" /usr/local/bin/UI
+   ```
+   Alternatively add aliases to your `~/.bashrc` or `~/.zshrc`:
+   ```sh
+   echo "alias ui='$PWD/ui'" >> ~/.bashrc
+   echo "alias UI='$PWD/ui'" >> ~/.bashrc
+   # reload the shell for the aliases to take effect
+   ```
+
 
 4. No external database setup is required. The application uses an embedded
    H2 database that runs in memory. You can access the H2 console at

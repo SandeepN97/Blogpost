@@ -1,7 +1,43 @@
 #!/usr/bin/env bash
-# Simple helper to serve the React frontend
+# Helper script to start the frontend and open it in the browser.
+
+set -e
+
 PORT=${PORT:-3000}
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR/frontend" || exit 1
-echo "Starting UI on http://localhost:$PORT"
-python -m http.server "$PORT"
+
+# Determine the command to launch the frontend
+if [ -n "$FRONTEND_CMD" ]; then
+  START_CMD="$FRONTEND_CMD"
+else
+  if command -v python3 >/dev/null 2>&1; then
+    START_CMD="python3 -m http.server $PORT"
+  elif command -v python >/dev/null 2>&1; then
+    START_CMD="python -m http.server $PORT"
+  elif command -v npx >/dev/null 2>&1; then
+    START_CMD="npx --yes http-server -p $PORT"
+  else
+    echo "No suitable server found. Install Python or Node's http-server, or set FRONTEND_CMD." >&2
+    exit 1
+  fi
+fi
+
+echo "Starting frontend with: $START_CMD"
+
+# Run the server in the background so we can open the browser
+bash -c "$START_CMD" &
+SERVER_PID=$!
+
+sleep 2
+URL="http://localhost:$PORT"
+if command -v xdg-open >/dev/null 2>&1; then
+  xdg-open "$URL"
+elif command -v open >/dev/null 2>&1; then
+  open "$URL"
+else
+  echo "Open $URL in your browser"
+fi
+
+wait $SERVER_PID
+
