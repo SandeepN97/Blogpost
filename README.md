@@ -59,11 +59,11 @@ A simple blog application built with Spring Boot.
    ```
 
 3. Start the React frontend (optional):
+   Use the helper script from the project root:
    ```sh
-   cd frontend
-   python -m http.server 3000
+   ./ui       # or ./UI
    ```
-   Then open [http://localhost:3000/index.html](http://localhost:3000/index.html) in your browser.
+   This serves the `frontend` directory on [http://localhost:3000](http://localhost:3000).
 
 4. No external database setup is required. The application uses an embedded
    H2 database that runs in memory. You can access the H2 console at
