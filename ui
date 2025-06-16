@@ -31,12 +31,15 @@ else
 fi
 
 echo "Starting frontend with: $START_CMD"
-
-# Run the server in the background so we can open the browser
-bash -c "$START_CMD" &
-SERVER_PID=$!
-
-sleep 2
+if lsof -i tcp:"$PORT" -sTCP:LISTEN >/dev/null 2>&1; then
+  echo "Port $PORT already in use; assuming server is running"
+  SERVER_PID=""
+else
+  # Run the server in the background so we can open the browser
+  bash -c "$START_CMD" &
+  SERVER_PID=$!
+  sleep 2
+fi
 URL="http://localhost:$PORT"
 if command -v xdg-open >/dev/null 2>&1; then
   xdg-open "$URL"
@@ -45,5 +48,4 @@ elif command -v open >/dev/null 2>&1; then
 else
   echo "Open $URL in your browser"
 fi
-
-wait $SERVER_PID
+[ -n "$SERVER_PID" ] && wait $SERVER_PID
