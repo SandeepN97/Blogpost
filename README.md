@@ -59,11 +59,27 @@ A simple blog application built with Spring Boot.
    ```
 
 3. Start the React frontend (optional):
+   Once the `ui` helper is on your `PATH` you can run it from anywhere:
    ```sh
-   cd frontend
-   python -m http.server 3000
+   ui       # or UI
    ```
-   Then open [http://localhost:3000/index.html](http://localhost:3000/index.html) in your browser.
+   The script serves the `frontend` folder on [http://localhost:3000](http://localhost:3000)
+   by auto-detecting `python3`, `python` or `npx http-server`. You can override the
+   command completely by setting the `FRONTEND_CMD` environment variable (e.g. `npm run dev`).
+   If the port is already in use, `ui` assumes your dev server is running and just opens the browser.
+
+   To make the command globally available on macOS/Linux, create symlinks:
+   ```sh
+   sudo ln -s "$PWD/ui" /usr/local/bin/ui
+   sudo ln -s "$PWD/ui" /usr/local/bin/UI
+   ```
+   The script resolves its own path so these symlinks work from any directory.
+   Alternatively add aliases to your `~/.bashrc` or `~/.zshrc`:
+   ```sh
+   echo "alias ui='$PWD/ui'" >> ~/.bashrc
+   echo "alias UI='$PWD/ui'" >> ~/.bashrc
+   # reload the shell for the aliases to take effect
+   ```
 
 4. No external database setup is required. The application uses an embedded
    H2 database that runs in memory. You can access the H2 console at
@@ -89,27 +105,6 @@ A simple blog application built with Spring Boot.
    ```sh
    ./mvnw test
    ```
-
-### Running the Application 🚀
-
-1. From the project root, start the Spring Boot backend:
-   ```sh
-   ./mvnw spring-boot:run
-   ```
-   The API will be available at [http://localhost:8084/blogpostapplication](http://localhost:8084/blogpostapplication).
-   The first run may take a while as Maven downloads dependencies.
-
-   If you want to prefetch all dependencies manually, run:
-   ```sh
-   ./mvnw dependency:resolve
-   ```
-   This command uses the [maven-dependency-plugin](https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-dependency-plugin) to ensure all required artifacts are downloaded.
-
-2. *(Optional)* Execute the test suite:
-   ```sh
-   ./mvnw test
-   ```
-
 
 ### API Documentation
 
