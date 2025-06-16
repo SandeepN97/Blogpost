@@ -27,3 +27,4 @@ else
 fi
 
 wait $SERVER_PID
+

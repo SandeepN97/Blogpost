@@ -78,6 +78,7 @@ A simple blog application built with Spring Boot.
    # reload the shell for the aliases to take effect
    ```
 
+
 4. No external database setup is required. The application uses an embedded
    H2 database that runs in memory. You can access the H2 console at
    [http://localhost:8084/blogpostapplication/h2-console](http://localhost:8084/blogpostapplication/h2-console)
