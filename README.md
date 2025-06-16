@@ -72,6 +72,7 @@ A simple blog application built with Spring Boot.
    sudo ln -s "$PWD/ui" /usr/local/bin/ui
    sudo ln -s "$PWD/ui" /usr/local/bin/UI
    ```
+   The script resolves its own path so these symlinks work from any directory.
    Alternatively add aliases to your `~/.bashrc` or `~/.zshrc`:
    ```sh
    echo "alias ui='$PWD/ui'" >> ~/.bashrc
