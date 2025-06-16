@@ -168,8 +168,7 @@ function App() {
                 />
                 <button onClick={() => submitComment(post.id)}>Add</button>
               </div>
-            )}
-            </div>
+              )}
           </li>
         ))}
       </ul>
