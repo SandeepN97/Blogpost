@@ -7,8 +7,21 @@ PORT=${PORT:-3000}
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR/frontend" || exit 1
 
-# Use a custom start command if FRONTEND_CMD is set, otherwise serve statically
-START_CMD=${FRONTEND_CMD:-"python -m http.server $PORT"}
+# Determine the command to launch the frontend
+if [ -n "$FRONTEND_CMD" ]; then
+  START_CMD="$FRONTEND_CMD"
+else
+  if command -v python3 >/dev/null 2>&1; then
+    START_CMD="python3 -m http.server $PORT"
+  elif command -v python >/dev/null 2>&1; then
+    START_CMD="python -m http.server $PORT"
+  elif command -v npx >/dev/null 2>&1; then
+    START_CMD="npx --yes http-server -p $PORT"
+  else
+    echo "No suitable server found. Install Python or Node's http-server, or set FRONTEND_CMD." >&2
+    exit 1
+  fi
+fi
 
 echo "Starting frontend with: $START_CMD"
 

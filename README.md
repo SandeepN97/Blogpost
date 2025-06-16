@@ -63,8 +63,9 @@ A simple blog application built with Spring Boot.
    ```sh
    ui       # or UI
    ```
-   The script serves the `frontend` folder on [http://localhost:3000](http://localhost:3000),
-   opens it in your browser and respects a custom command via `FRONTEND_CMD`.
+   The script serves the `frontend` folder on [http://localhost:3000](http://localhost:3000)
+   by auto-detecting `python3`, `python` or `npx http-server`. You can override the
+   command completely by setting the `FRONTEND_CMD` environment variable (e.g. `npm run dev`).
 
    To make the command globally available on macOS/Linux, create symlinks:
    ```sh
