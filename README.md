@@ -62,6 +62,7 @@ A simple blog application built with Spring Boot.
    Once the `ui` helper is on your `PATH` you can run it from anywhere:
    ```sh
    ui       # or UI
+
    ```
    The script serves the `frontend` folder on [http://localhost:3000](http://localhost:3000)
    by auto-detecting `python3`, `python` or `npx http-server`. You can override the
